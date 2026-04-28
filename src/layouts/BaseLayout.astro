@@ -1,0 +1,35 @@
+---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import Sidebar from '../components/Sidebar.astro'
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = '福岡のゲーム音楽オーケストラ｜アトラース・フィル' } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | アトラース・フィル</title>
+  <meta name="description" content={description} />
+</head>
+<body class="bg-white text-gray-900">
+  <Header />
+  <div class="container mx-auto flex gap-8 px-4 py-8">
+    <main class="flex-1 min-w-0">
+      <slot />
+    </main>
+    <aside class="w-64 shrink-0">
+      <Sidebar />
+    </aside>
+  </div>
+  <Footer />
+</body>
+</html>

@@ -1,0 +1,10 @@
+dist/
+node_modules/
+.output/
+.vercel
+.wrangler/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.xml

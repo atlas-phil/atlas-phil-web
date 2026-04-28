@@ -1,0 +1,50 @@
+---
+export const prerender = true
+
+import { createReader } from '@keystatic/core/reader'
+import keystaticConfig from '../../keystatic.config'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import BlogCard from '../components/BlogCard.astro'
+
+const reader = createReader(process.cwd(), keystaticConfig)
+const allPosts = await reader.collections.posts.all()
+
+const recentPosts = allPosts
+  .sort((a, b) => (b.entry.publishedDate ?? '').localeCompare(a.entry.publishedDate ?? ''))
+  .slice(0, 6)
+  .map((post) => {
+    const date = new Date(post.entry.publishedDate ?? '')
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return { post, href: `/${year}/${month}/${day}/${decodeURIComponent(post.slug)}` }
+  })
+---
+
+<BaseLayout title="ホーム" description="福岡のゲーム音楽オーケストラ｜フィルハーモニア・アンサンブル・アトラース">
+  <section class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">
+      フィルハーモニア・アンサンブル・アトラース
+    </h1>
+    <p class="text-gray-600">福岡を拠点に活動するゲーム音楽オーケストラです。</p>
+  </section>
+
+  {recentPosts.length > 0 && (
+    <section>
+      <h2 class="text-lg font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">
+        最新の記事
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {recentPosts.map(({ post, href }) => (
+          <BlogCard
+            title={post.entry.title ?? ''}
+            publishedDate={new Date(post.entry.publishedDate ?? '')}
+            category={post.entry.category ?? 'member-blog'}
+            eyecatch={post.entry.eyecatch ?? undefined}
+            href={href}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>

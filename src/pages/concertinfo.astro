@@ -1,0 +1,25 @@
+---
+export const prerender = true
+
+import { createReader } from '@keystatic/core/reader'
+import Markdoc from '@markdoc/markdoc'
+import keystaticConfig from '../../keystatic.config'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const reader = createReader(process.cwd(), keystaticConfig)
+const concert = await reader.singletons.concert.read()
+
+let contentHtml = ''
+if (concert?.content) {
+  const { node } = await concert.content()
+  contentHtml = Markdoc.renderers.html(Markdoc.transform(node))
+}
+---
+
+<BaseLayout title="演奏会情報">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">演奏会情報</h1>
+  {contentHtml
+    ? <div class="prose max-w-none" set:html={contentHtml} />
+    : <p class="text-gray-500">現在、演奏会情報はありません。</p>
+  }
+</BaseLayout>

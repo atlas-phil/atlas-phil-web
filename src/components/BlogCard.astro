@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: string
+  publishedDate: Date
+  category: string
+  eyecatch?: string
+  href: string
+}
+
+const { title, publishedDate, category, eyecatch, href } = Astro.props
+
+const categoryLabels: Record<string, string> = {
+  'member-blog': '団員ブログ',
+  'concert-report': '本番レポート',
+  'interview': '【団員にきいてみた】',
+}
+---
+
+<article class="border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow">
+  <a href={href}>
+    {eyecatch && (
+      <img src={eyecatch} alt="" class="w-full h-40 object-cover" />
+    )}
+    <div class="p-4">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+          {categoryLabels[category] ?? category}
+        </span>
+        <time class="text-xs text-gray-500">
+          {publishedDate.toLocaleDateString('ja-JP')}
+        </time>
+      </div>
+      <h3 class="text-sm font-bold text-gray-800 line-clamp-2">{title}</h3>
+    </div>
+  </a>
+</article>

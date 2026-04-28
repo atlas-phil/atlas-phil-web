@@ -1,0 +1,61 @@
+---
+const navItems = [
+  { label: 'HOME', sublabel: 'ホーム', href: '/' },
+  { label: 'About', sublabel: '楽団紹介', href: '/about' },
+  {
+    label: 'Activity', sublabel: '今後の予定', href: '/nittei2015',
+    children: [
+      { label: '練習日程', href: '/nittei2015' },
+      { label: '演奏会情報', href: '/concertinfo' },
+    ],
+  },
+  {
+    label: 'Blog', sublabel: '楽団の記録', href: '/blog',
+    children: [
+      { label: '団員ブログ', href: '/category/member-blog' },
+      { label: '本番レポート', href: '/category/concert-report' },
+    ],
+  },
+  { label: 'Welcome', sublabel: '団員募集', href: '/boshu' },
+  { label: 'Mail', sublabel: 'お問い合わせ', href: '/contact' },
+]
+---
+
+<header class="bg-white border-b border-gray-200">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between py-4">
+      <a href="/" class="text-xl font-bold text-gray-800">
+        フィルハーモニア・アンサンブル・アトラース
+      </a>
+    </div>
+    <nav>
+      <ul class="flex gap-1">
+        {navItems.map((item) => (
+          <li class="relative group">
+            <a
+              href={item.href}
+              class="flex flex-col items-center px-4 py-3 text-sm hover:bg-gray-50 transition-colors"
+            >
+              <span class="font-bold text-gray-700">{item.label}</span>
+              <span class="text-xs text-gray-500">{item.sublabel}</span>
+            </a>
+            {item.children && (
+              <ul class="absolute left-0 top-full z-10 hidden group-hover:block bg-white border border-gray-200 shadow-md min-w-40">
+                {item.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

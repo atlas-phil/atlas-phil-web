@@ -1,0 +1,68 @@
+---
+export const prerender = true
+
+import { createReader } from '@keystatic/core/reader'
+import Markdoc from '@markdoc/markdoc'
+import keystaticConfig from '../../../../../keystatic.config'
+import BaseLayout from '../../../../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  const reader = createReader(process.cwd(), keystaticConfig)
+  const allPosts = await reader.collections.posts.all()
+
+  return allPosts.map((post) => {
+    const date = new Date(post.entry.publishedDate ?? '')
+    const decodedSlug = decodeURIComponent(post.slug)
+    return {
+      params: {
+        year: String(date.getFullYear()),
+        month: String(date.getMonth() + 1).padStart(2, '0'),
+        day: String(date.getDate()).padStart(2, '0'),
+        slug: decodedSlug,
+      },
+      props: { postSlug: post.slug },
+    }
+  })
+}
+
+const { postSlug } = Astro.props
+const reader = createReader(process.cwd(), keystaticConfig)
+const post = await reader.collections.posts.read(postSlug)
+
+const categoryLabels: Record<string, string> = {
+  'member-blog': '団員ブログ',
+  'concert-report': '本番レポート',
+  'interview': '【団員にきいてみた】',
+}
+
+let contentHtml = ''
+if (post?.content) {
+  const { node } = await post.content()
+  contentHtml = Markdoc.renderers.html(Markdoc.transform(node))
+}
+
+const publishedDate = new Date(post?.publishedDate ?? '')
+---
+
+<BaseLayout title={post?.title ?? ''}>
+  <article class="max-w-2xl">
+    <header class="mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <a
+          href={`/category/${post?.category}`}
+          class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded hover:bg-gray-200"
+        >
+          {categoryLabels[post?.category ?? ''] ?? post?.category}
+        </a>
+        <time class="text-xs text-gray-500">
+          {publishedDate.toLocaleDateString('ja-JP')}
+        </time>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-800">{post?.title}</h1>
+      {post?.eyecatch && (
+        <img src={post.eyecatch} alt="" class="w-full mt-4 rounded" />
+      )}
+    </header>
+    <div class="prose max-w-none" set:html={contentHtml} />
+  </article>
+</BaseLayout>

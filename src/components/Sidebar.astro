@@ -1,0 +1,40 @@
+---
+import { createReader } from '@keystatic/core/reader'
+import keystaticConfig from '../../keystatic.config'
+
+const reader = createReader(process.cwd(), keystaticConfig)
+const updates = await reader.singletons.updates.read()
+---
+
+<aside class="space-y-6">
+  <section class="bg-gray-50 rounded p-4">
+    <h2 class="text-sm font-bold text-gray-700 border-b border-gray-200 pb-2 mb-3">
+      新着・更新情報
+    </h2>
+    {updates?.items && updates.items.length > 0 ? (
+      <ul class="space-y-2">
+        {updates.items.map((item) => (
+          <li class="text-xs">
+            <time class="text-gray-500">{item.date}</time>
+            <p class="text-gray-700">
+              {item.url ? (
+                <a href={item.url} class="hover:underline text-blue-600">{item.text}</a>
+              ) : (
+                item.text
+              )}
+            </p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-xs text-gray-500">新着情報はありません</p>
+    )}
+  </section>
+
+  <section class="bg-blue-50 rounded p-4">
+    <a href="/contact" class="block text-center">
+      <p class="text-sm font-bold text-blue-700">お問い合わせ</p>
+      <p class="text-xs text-blue-600 mt-1">お気軽にご連絡ください</p>
+    </a>
+  </section>
+</aside>

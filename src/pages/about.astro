@@ -1,0 +1,46 @@
+---
+export const prerender = true
+
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const content = `
+<h2>フィルハーモニア・アンサンブル・アトラース（略称アトラース・フィル）とは</h2>
+<p>私たちは、ゲームやアニメの音楽で街を元気にし、音楽を愛する人たちのための居場所となれるよう、２０１６年７月１日より活動開始いたしました。
+主に、福岡の街中及びホールにおいて演奏会を開催しており、地元の方々との繋がりを大切に日々の活動をしております。</p>
+<h3>名前の由来について</h3>
+<p>アトラースを語源としている「アトランティーダ」（またの名をアトランティス）は地上の楽園を意味しています。
+また、アトラースの英語表記「Atlas」の名は語源的に「持ち上げる、支える」という意味を持ちます。
+ここから「耐える」という意味にも派生しました。
+加えて、現代の英語で「atlas」とは地図帳のことです。これは天球を支えるアトラース神の姿が昔の地図に描かれていたこと、またアトラース神自身が世界そのものであるといった由来があります。
+どんな苦難の中でも天空を支え続ける巨神アトラース。
+そして、それを語源に持つ地上の楽園アトランティーダ(アトランティス)。
+楽園と呼べるような楽しいことばかりではないかもしれないけれど、不屈の精神で私たちの音楽を世界に届けたい。今はまっさらな地図かもしれないけれど、私たちの音楽が誰かの支えとなるような、そんな世界を描いていきたい。そういった思いをこめています。</p>
+<h3>主な活動歴</h3>
+<ul>
+  <li>2017.2.12 <a href="https://atlas-phil.info/2017/02/12/kasuga_roby_concert2017/" target="_blank" rel="noopener noreferrer">ロビーコンサート『"とき"を奏でるゲーム音楽祭』</a>開催</li>
+  <li>2017.3.25 ゲーム音楽ライブ<a href="https://atlas-phil.info/2017/03/25/0325bonustrack/" target="_blank" rel="noopener noreferrer">bonustrack"01"</a>出演</li>
+  <li>2017.9.17 <a href="https://atlas-phil.info/2017/09/17/retrogamemusic/" target="_blank" rel="noopener noreferrer">れとろげ！Ⅲレトロゲーム音楽祭</a>出演</li>
+  <li>2017.11.11 <a href="https://wp.me/p7nQtL-gA" target="_blank" rel="noopener noreferrer">コンサート・オブ・ファンタジア～夢を紡ぐＲＰＧ～</a>主催</li>
+  <li>2018.11.10 <a href="https://atlas-phil.info/2018/12/10/%e7%ac%ac%ef%bc%92%e5%9b%9e%e5%ae%9a%e6%9c%9f%e6%bc%94%e5%a5%8f%e4%bc%9a/">第2回定期演奏会</a>主催</li>
+  <li>2018.12.1 <a href="https://atlas-phil.info/2018/12/01/%e3%82%af%e3%83%aa%e3%82%b9%e3%83%9e%e3%82%b9%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%bc%e3%83%88%ef%bc%a0%e5%b2%a9%e7%94%b0%e5%b1%8b%e3%82%b5%e3%83%ad%e3%83%b3%e3%80%80%e6%9c%ac%e7%95%aa%e3%83%ac%e3%83%9d%e3%83%bc%e3%83%88/">クリスマスコンサート＠岩田屋サロン</a>依頼演奏</li>
+  <li>2019.4.28 <a href="https://atlas-phil.info/2019/04/28/%e3%80%8e%e7%9d%80%e7%89%a9-de-%e3%83%af%e3%82%a4%e3%83%b3%e4%bc%9a%e3%80%8f%e6%9c%ac%e7%95%aa%e3%83%ac%e3%83%9d%e3%83%bc%e3%83%88/">『着物 de ワイン会』</a>依頼演奏</li>
+  <li>2019.7.7 <a href="https://atlas-phil.info/2019/07/07/%e4%b8%83%e5%a4%95%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%bc%e3%83%88%e6%9c%ac%e7%95%aa%e3%83%ac%e3%83%9d%e3%83%bc%e3%83%88/">七夕コンサート＠岩田屋サロン</a>依頼演奏</li>
+  <li>2019.11.11 <a href="https://atlas-phil.info/2019/11/24/atlasphil3rd-2/">第3回定期演奏会</a>主催</li>
+  <li>2021.11.8 <a href="https://atlas-phil.info/2021/02/14/online/">オンライン演奏会</a>主催</li>
+  <li>2021.11.28 <a href="https://wp.me/p7nQtL-18E">第4回定期演奏会Disc1</a>主催</li>
+  <li>2022.11.6 <a href="https://atlas-phil.info/2023/01/04/%e7%ac%ac%ef%bc%94%e5%9b%9e%e5%ae%9a%e6%9c%9f%e6%bc%94%e5%a5%8f%e4%bc%9a%e5%ae%8c%e5%85%a8%e7%89%88%e3%80%80%e9%96%8b%e5%82%ac%e3%83%ac%e3%83%9d%e3%83%bc%e3%83%88/">第４回定期演奏会DLC入り完全版</a>主催</li>
+  <li>2023.8.26 <a href="https://atlas-phil.info/2023/09/09/report_20230826/">文化の夏まつり</a>出演</li>
+  <li>2023.11.4 <a href="https://atlas-phil.info/2023/11/13/report_20231104_01/">第5回定期演奏会</a>主催</li>
+</ul>
+<h3>各種リンク</h3>
+<ul>
+  <li>YouTubeチャンネルは<a href="https://www.youtube.com/channel/UCwI6n2LyIzN5yt5xaPmBLiA" target="_blank" rel="noopener noreferrer">こちら</a></li>
+  <li>Instagramは<a href="https://www.instagram.com/atlas_phil/" target="_blank" rel="noopener noreferrer">こちら</a></li>
+</ul>
+`
+---
+
+<BaseLayout title="楽団紹介" description="フィルハーモニア・アンサンブル・アトラースについて">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">楽団紹介</h1>
+  <div class="prose max-w-none" set:html={content} />
+</BaseLayout>
